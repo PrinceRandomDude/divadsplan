@@ -7,6 +7,8 @@
     <style>
         /* Header */
         h1 {
+            position: absolute;
+            top: 20px;
             font-size: 36px;
             margin: 10px 0;
         }
@@ -40,18 +42,39 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        /* Submit button */
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h1>David's Thank You</h1>
-    <p>This is a thank you login page</p>
+    <p>For reference, this is the original video link:</p>
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username">
+        <input type="text" id="username" name="username" placeholder="Username">>
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password">
+        <input type="password" id="password" name="password" placeholder="Password">>
     </div>
+    <button onclick="checkCredentials()">Submit</button>
+    <script>
+        function checkCredentials() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username.toLowerCase() === 'dswu' && password.toLowerCase() === 'apple') {
+                window.location.href = 'personal_david.html';
+            } else {
+                alert('Incorrect password. Please try again.');
+                password.value = ''; // Clear the password field
+                password.focus(); // Focus back on the password field
+            }
+        }
+    </script>
 </body>
 </html>
