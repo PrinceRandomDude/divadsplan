@@ -12,6 +12,18 @@
             font-size: 36px;
             margin: 10px 0;
         }
+        h2 {
+            position: absolute;
+            top: 80px;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        h3 {
+            position: absolute;
+            top: 120px;
+            font-size: 18px;
+            margin: 10px 0;
+        }
         p {
             font-size: 18px;
             margin: 5px 0;
@@ -25,7 +37,7 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #add8e6;
         }
         .form-group {
             margin: 10px 0;
@@ -41,6 +53,7 @@
             width: 200px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            transition: background-color 0.3s;
         }
         /* Submit button */
         button {
@@ -49,32 +62,65 @@
             margin-top: 10px;
             cursor: pointer;
         }
+        /* Error shake */
+        .shake {
+            animation: shake 0.3s ease;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
     </style>
 </head>
 <body>
     <h1>David's Thank You</h1>
-    <p>For reference, this is the original video link:</p>
+    <h2>For reference, this is the original video link:</h2>
+    <h3>Good luck!</h3>
     <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Username">>
+        <input type="text" id="username" name="username" placeholder="Username">
     </div>
     <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Password">>
+        <input type="text" id="password" name="password" placeholder="Password">
     </div>
-    <button onclick="checkCredentials()">Submit</button>
+    <button id="submitButton" onclick="checkCredentials()">Submit</button>
     <script>
         function checkCredentials() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const usernameField = document.getElementById('username');
+            const username = usernameField.value;
+            const passwordField = document.getElementById('password');
+            const password = passwordField.value;
             if (username.toLowerCase() === 'dswu' && password.toLowerCase() === 'apple') {
                 window.location.href = 'personal_david.html';
             } else {
-                alert('Incorrect password. Please try again.');
-                password.value = ''; // Clear the password field
-                password.focus(); // Focus back on the password field
+                shakeInput(passwordField)
+                // alert('Incorrect password. Please try again.');
             }
         }
+
+        // Adds the error shake 
+        function shakeInput(inputField) {
+            inputField.value = ''; // Clear the input field
+            inputField.classList.add('shake'); // Add shake class
+            inputField.style.backgroundColor = 'rgba(255, 0, 0, 0.3)'; // Change border color to transparent red
+
+            // Remove the shake effect and reset the border color after a short duration
+            setTimeout(() => {
+                inputField.classList.remove('shake');
+                inputField.style.backgroundColor = ''; // Reset border color 
+                inputField.focus(); // Focus back on the input field
+            }, 500); // Duration of the shake effect
+        }
+
+        // Pressing enter button in password field also triggers the Submit button
+        document.getElementById('password').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('submitButton').click(); // Trigger button click
+            }
+        });
     </script>
 </body>
 </html>
