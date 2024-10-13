@@ -1,4 +1,4 @@
-// YOU SHOULD NOT BE READING THIS PAGE.
+// YOU SHOULD NOT BE READING THIS PAGE. TURN BACK NOW.
 
 // perform authentication
 async function authenticate(username, password) {
@@ -30,11 +30,11 @@ function ERICO(w) {
     return w
 }
 
-function a(s, shiftFunc) {
+function a(s, sf) {
     return s.split('').map((c, i) => {
-        let charCode = c.charCodeAt(0);
-        let shiftedCharCode = ((charCode - 'a'.charCodeAt(0) + shiftFunc(i)) % 26) + 'a'.charCodeAt(0);
-        return String.fromCharCode(shiftedCharCode);
+        let cc = c.charCodeAt(0);
+        let scc = ((cc - 'a'.charCodeAt(0) + sf(i)) % 26) + 'a'.charCodeAt(0);
+        return String.fromCharCode(scc);
     }).join('');
 }
 
