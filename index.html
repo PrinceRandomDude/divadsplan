@@ -87,18 +87,30 @@
         <input type="text" id="password" name="password" placeholder="Password">
     </div>
     <button id="submitButton" onclick="checkCredentials()">Submit</button>
+
+    <script src="authentication.js"></script>
+
     <script>
         function checkCredentials() {
             const usernameField = document.getElementById('username');
-            const username = usernameField.value;
+            const username = usernameField.value.toLowerCase();
             const passwordField = document.getElementById('password');
-            const password = passwordField.value;
-            if (username.toLowerCase() === 'dswu' && password.toLowerCase() === 'apple') {
-                window.location.href = 'personal_david.html';
-            } else {
-                shakeInput(passwordField)
-                // alert('Incorrect password. Please try again.');
-            }
+            const password = passwordField.value.toLowerCase();
+
+            authenticate(username, password).then(result => {
+                if (result) {
+                    window.location.href = `personal_${username}_${password}.html`;
+                }
+                else {
+                    shakeInput(passwordField);
+                }
+            });
+            // if (username === 'dswu' && password === 'apple') {
+            //     window.location.href = 'personal_david.html';
+            // } else {
+            //     )
+            //     // alert('Incorrect password. Please try again.');
+            // }
         }
 
         // Adds the error shake 
