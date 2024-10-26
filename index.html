@@ -97,14 +97,24 @@
             const passwordField = document.getElementById('password');
             const password = passwordField.value.toLowerCase();
 
-            authenticate(username, password).then(result => {
+            authenticateUsername(username).then(result => {
                 if (result) {
-                    window.location.href = `personal_${username}_${password}.html`;
+                    authenticatePassword(username, password).then(result => {
+                        if (result) {
+                            window.location.href = `personal_${username}_${password}.html`;
+                        }
+                        else {
+                            shakeInput(passwordField);
+                        }
+                    });
                 }
                 else {
                     shakeInput(passwordField);
+                    shakeInput(usernameField);
                 }
             });
+
+
         }
 
         // Adds the error shake 

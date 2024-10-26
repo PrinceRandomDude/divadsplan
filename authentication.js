@@ -1,7 +1,7 @@
 // YOU SHOULD NOT BE READING THIS PAGE. TURN BACK NOW.
 
 // perform authentication
-async function authenticate(username, password) {
+async function authenticateUsername(username) {
   try {
     const response = await fetch('secrets.json');
     if (!response.ok) {
@@ -9,7 +9,7 @@ async function authenticate(username, password) {
     }
     const secrets = await response.json();
 
-    if (secrets[username] === ERICO(password)) {
+    if (username in secrets) {
         return true;
     }
     else {
@@ -21,6 +21,27 @@ async function authenticate(username, password) {
     return false;
   }
 }
+
+async function authenticatePassword(username, password) {
+    try {
+      const response = await fetch('secrets.json');
+      if (!response.ok) {
+        throw new Error('Failed to load JSON file');
+      }
+      const secrets = await response.json();
+  
+      if (secrets[username] === ERICO(password)) {
+          return true;
+      }
+      else {
+          return false;
+      }
+      
+    } catch (error) {
+      console.error('Error loading JSON:', error);
+      return false;
+    }
+  }
 
 // Encryption Relying on Innovative and Confusing Operations
 function ERICO(w) {
